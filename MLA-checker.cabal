@@ -1,0 +1,64 @@
+cabal-version: 3.0
+name: MLA-checker
+version: 0.1.0.0
+synopsis: A CLI to check mla-formatted papers
+description:
+    A command-line interface for checking the validity of
+    papers trying to follow MLA guidelines.
+homepage: https://github.com/Xenovia02/MLA-checker
+license: MIT
+license-file: LICENSE
+author: Rose
+maintainer: RoseAetherius@gmail.com
+extra-source-files:
+    README.md
+    LICENSE
+
+common base-dependencies
+    build-depends:
+        base >= 4.14.3.0
+    default-language:
+        Haskell2010
+    default-extensions:
+        BangPatterns
+    ghc-options:
+        -fhide-source-paths
+        -Wall
+        -Wextra
+        -Wcompat
+        -Wredundant-constraints
+        -Wmissing-export-lists
+        -Wno-unused-do-bind
+        -Werror
+
+library MLA-lib
+    import:
+        base-dependencies
+    exposed-modules:
+        MLA.AbsSynTree
+    hs-source-dirs:
+        src
+
+executable MLA-exe
+    import:
+        base-dependencies
+    main-is:
+        Main.hs
+    build-depends:
+        MLA-lib
+    hs-source-dirs:
+        app
+
+test-suite MLA-test
+    import:
+        base-dependencies
+    main-is:
+        Test.hs
+    type:
+        exitcode-stdio-1.0
+    hs-source-dirs:
+        app,
+        test
+    build-depends:
+        MLA-lib >= 0.1.0.0,
+        HUnit   >= 1.6.2.0
